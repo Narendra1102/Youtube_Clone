@@ -1,4 +1,5 @@
 import Video from "../models/Video.js";
+import Channel from "../models/Channel.js";
 
 // ✅ GET VIDEOS (Search + Filter + Pagination + Sorting)
 export const getVideos = async (req, res) => {
@@ -82,15 +83,10 @@ export const createVideo = async (req, res) => {
     // Validation
     const { title, description, category, videoUrl, thumbnailUrl, channelName } = req.body;
 
-    // ✅ 1. Get logged-in user from token
-    const userId = req.user.id;
+    
 
-    // ✅ 2. Find user's channel
-    const channel = await Channel.findOne({ owner: userId });
+    
 
-    if (!channel) {
-      return res.status(404).json({ msg: "Channel not found" });
-    }
 
     if (!title || !description || !videoUrl) {
       return res.status(400).json({
@@ -117,7 +113,6 @@ export const createVideo = async (req, res) => {
       thumbnailUrl,
       category: category || "Music",
       channelName,
-      channelId: channel._id,
       uploader: req.user?.id,
       views: 0,
       likes: 0,
