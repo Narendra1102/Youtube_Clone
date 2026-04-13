@@ -19,10 +19,8 @@ const Channel = () => {
 
   const fetchChannelData = async () => {
     try {
-      console.log("Channel ID:", id);
-
+      
       const res = await getChannel(id);
-      console.log("CHANNEL RESPONSE:", res);
 
       setChannel(res.data);
 
